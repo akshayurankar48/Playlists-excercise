@@ -17,10 +17,10 @@ const Header = ({ postIdsArr }) => {
       "https://fxojmluid9.execute-api.ap-south-1.amazonaws.com/Prodapi/engt/createPlayList",
       {
         method: "POST",
-        mode: "no-cors",
+        mode: "cors",
         headers: {
-          "X-api-key": "MXqO3cDcr492OTPGZZAot7akPvLmfKbA4bKt5Ryr",
-          "X-tenant-key": "DIVANOR123",
+          "x-api-key": "MXqO3cDcr492OTPGZZAot7akPvLmfKbA4bKt5Ryr",
+          "x-tenant-key": "DIVANOR123",
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
@@ -33,7 +33,10 @@ const Header = ({ postIdsArr }) => {
       }
     )
       .then((res) => res.json())
-      .then((data) => console.log({ data }))
+      .then((data) => {
+        setPlayListName("")
+        setPlayListDesc("")
+        console.log({ data })})
       .catch((err) => console.error(err));
   };
 

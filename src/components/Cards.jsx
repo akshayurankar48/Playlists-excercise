@@ -1,7 +1,36 @@
-const Cards = ({ videos, postIdsArr }) => {
+import { useEffect, useState } from "react";
+
+const Cards = ({ postIdsArr }) => {
+
+  const [data, setData] = useState([]);
+  
+  const fetchVideos = () => {
+    fetch(
+      "https://fxojmluid9.execute-api.ap-south-1.amazonaws.com/Prod/api/engt/getfeeds_v1",
+      {
+        method: "POST",
+        headers: {
+          "X-api-key": "MXqO3cDcr492OTPGZZAot7akPvLmfKbA4bKt5Ryr",
+          "X-tenant-key": "DIVANOR123",
+        },
+        body: JSON.stringify({
+          Index: 1,
+          ContentType: [2],
+        }),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => setData(data.data.Feeds))
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    fetchVideos();
+  }, [])
+
   return (
     <div className="flex flex-wrap gap-8 w-full h-full">
-      {videos?.map((video) => (
+      {data?.map((video) => (
         <Card
           key={video.EngagementPostId}
           video={video}
